@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FrameIt",
-  description: "Effortlessly frame your photos with just one click – powered by ICPEP-SE PUP.",
+  title: "Arduino Day 2025 Frame",
+  description: "Effortlessly frame your photos with just one click – made by ICPEP SE PUP.",
 };
 
 export default function RootLayout({
