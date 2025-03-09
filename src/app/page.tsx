@@ -13,8 +13,12 @@ import {
   X,
   Settings,
   Image as ImageIcon,
-  Copy
+  Copy,
+  RefreshCw,
+  Check,
+  AlertCircle
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export default function ImageFrameOverlay() {
   const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
@@ -27,6 +31,10 @@ export default function ImageFrameOverlay() {
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in magna at quam faucibus pharetra at id dui.";
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
+  const [scaleInputValue, setScaleInputValue] = useState<string>("1");
+  const [rotationInputValue, setRotationInputValue] = useState<string>("0");
+  const [scaleError, setScaleError] = useState<string>("");
+  const [rotationError, setRotationError] = useState<string>("");
   
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<HTMLImageElement | null>(null);
@@ -46,7 +54,20 @@ export default function ImageFrameOverlay() {
     }
     return canvas.toDataURL('image/png');
   };
-
+  const defaultSettings = {
+    scale: 1,
+    rotation: 0,
+    position: { x: 0, y: 0 }
+  };
+  const resetToDefault = () => {
+    setScale(defaultSettings.scale);
+    setRotation(defaultSettings.rotation);
+    setPosition(defaultSettings.position);
+    setScaleInputValue(defaultSettings.scale.toString());
+    setRotationInputValue(defaultSettings.rotation.toString());
+    setScaleError("");
+    setRotationError("");
+  };
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const img = new window.Image();
@@ -70,7 +91,6 @@ export default function ImageFrameOverlay() {
       img.src = frameSrc;
     }
   }, []);
-
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target || !e.target.files || e.target.files.length === 0) return;
     
@@ -83,9 +103,7 @@ export default function ImageFrameOverlay() {
         const img = new window.Image();
         img.onload = () => {
           setUploadedImage(img);
-          setPosition({ x: 0, y: 0 });
-          setScale(1);
-          setRotation(0);
+          resetToDefault();
           setShowSettings(true);
         };
         img.src = event.target.result;
@@ -93,10 +111,11 @@ export default function ImageFrameOverlay() {
       reader.readAsDataURL(file);
     }
   };
-
+  const changeImage = () => {
+    document.getElementById('image-upload')?.click();
+  };
   const startDrag = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!uploadedImage) return;
-
     if (!showSettings) {
       setShowSettings(true);
       return;
@@ -120,21 +139,86 @@ export default function ImageFrameOverlay() {
   const endDrag = () => {
     setIsDragging(false);
   };
-
   const copyCaption = () => {
     navigator.clipboard.writeText(caption).then(() => {
       setCaptionCopied(true);
       setTimeout(() => setCaptionCopied(false), 2000);
     });
   };
-
+  
+  const handleScaleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setScaleInputValue(inputValue);
+    
+    if (inputValue === "") {
+      setScaleError("Value cannot be empty");
+    } else {
+      const value = parseFloat(inputValue);
+      if (isNaN(value)) {
+        setScaleError("Please enter a valid number");
+      } else if (value < 0.1 || value > 10) {
+        setScaleError("Value must be between 0.1 and 10");
+      } else {
+        setScaleError("");
+        setScale(value);
+      }
+    }
+  };
+  
+  const handleScaleInputBlur = () => {
+    if (scaleInputValue === "") {
+      setScaleInputValue(scale.toString());
+      setScaleError("");
+    } else {
+      const value = parseFloat(scaleInputValue);
+      if (!isNaN(value) && value >= 0.1 && value <= 10) {
+        const roundedValue = Math.round(value * 10) / 10;
+        setScale(roundedValue);
+        setScaleInputValue(roundedValue.toString());
+        setScaleError("");
+      }
+    }
+  };
+  
+  const handleRotationInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setRotationInputValue(inputValue);
+    
+    if (inputValue === "") {
+      setRotationError("Value cannot be empty");
+    } else {
+      const value = parseFloat(inputValue);
+      if (isNaN(value)) {
+        setRotationError("Please enter a valid number");
+      } else if (value < 0 || value > 360) {
+        setRotationError("Value must be between 0 and 360");
+      } else {
+        setRotationError("");
+        setRotation(value);
+      }
+    }
+  };
+  
+  const handleRotationInputBlur = () => {
+    if (rotationInputValue === "") {
+      setRotationInputValue(rotation.toString());
+      setRotationError("");
+    } else {
+      const value = parseFloat(rotationInputValue);
+      if (!isNaN(value) && value >= 0 && value <= 360) {
+        setRotation(value);
+        setRotationInputValue(value.toString());
+        setRotationError("");
+      }
+    }
+  };
+  
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     try {
@@ -152,7 +236,6 @@ export default function ImageFrameOverlay() {
         
         ctx.restore();
       }
-
       if (frameRef.current && frameLoaded) {
         ctx.drawImage(frameRef.current, 0, 0, canvas.width, canvas.height);
       }
@@ -161,12 +244,11 @@ export default function ImageFrameOverlay() {
     }
     
   }, [uploadedImage, scale, position, rotation, frameLoaded]);
-
   const downloadImage = () => {
     if (!canvasRef.current) return;
     
     const link = document.createElement('a');
-    link.download = 'framed-image.png';
+    link.download = 'image.png';
     link.href = canvasRef.current.toDataURL('image/png');
     link.click();
   };
@@ -182,7 +264,7 @@ export default function ImageFrameOverlay() {
             </div>
           </div>
           <h1 className="text-2xl font-bold text-gray-800">FrameIt</h1>
-          <p className="text-gray-500 text-sm">Effortlessly frame your photos with just one click – powered by ICPEP SE - PUP</p>
+          <p className="text-gray-500 text-sm">Effortlessly frame your photos with just one click – made by </p>
         </div>
         
         {/* Main content area */}
@@ -249,15 +331,41 @@ export default function ImageFrameOverlay() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div>
-                    <h4 className="text-sm font-medium mb-2 text-gray-700">Scale</h4>
-                    <div className="flex items-center gap-2">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-sm font-medium text-gray-700">Scale</h4>
+                      <div className="w-16">
+                        <Input
+                          type="number"
+                          min="0.1"
+                          max="10"
+                          step="0.1"
+                          value={scaleInputValue}
+                          onChange={handleScaleInputChange}
+                          onBlur={handleScaleInputBlur}
+                          className={`h-7 text-sm ${scaleError ? 'border-red-500 focus:ring-red-500' : ''}`}
+                        />
+                      </div>
+                    </div>
+                    
+                    {scaleError && (
+                      <div className="flex items-center gap-1 text-red-500 text-xs mb-1 justify-end">
+                        <AlertCircle className="h-3 w-3" />
+                        <span>{scaleError}</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center gap-2 mt-1">
                       <ZoomOut className="h-4 w-4 text-gray-400" />
                       <Slider
                         value={[scale]}
                         min={0.1}
-                        max={2}
-                        step={0.01}
-                        onValueChange={(value) => setScale(value[0])}
+                        max={10}
+                        step={0.1}
+                        onValueChange={(value) => {
+                          setScale(value[0]);
+                          setScaleInputValue(value[0].toString());
+                          setScaleError("");
+                        }}
                         className="flex-grow"
                       />
                       <ZoomIn className="h-4 w-4 text-gray-400" />
@@ -265,15 +373,41 @@ export default function ImageFrameOverlay() {
                   </div>
                   
                   <div>
-                    <h4 className="text-sm font-medium mb-2 text-gray-700">Rotation</h4>
-                    <div className="flex items-center gap-2">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="text-sm font-medium text-gray-700">Rotation</h4>
+                      <div className="w-16">
+                        <Input
+                          type="number"
+                          min="0"
+                          max="360"
+                          step="1"
+                          value={rotationInputValue}
+                          onChange={handleRotationInputChange}
+                          onBlur={handleRotationInputBlur}
+                          className={`h-7 text-sm ${rotationError ? 'border-red-500 focus:ring-red-500' : ''}`}
+                        />
+                      </div>
+                    </div>
+                    
+                    {rotationError && (
+                      <div className="flex items-center gap-1 text-red-500 text-xs mb-1 justify-end">
+                        <AlertCircle className="h-3 w-3" />
+                        <span>{rotationError}</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center gap-2 mt-1">
                       <RotateCcw className="h-4 w-4 text-gray-400" />
                       <Slider
                         value={[rotation]}
-                        min={-180}
-                        max={180}
+                        min={0}
+                        max={360}
                         step={1}
-                        onValueChange={(value) => setRotation(value[0])}
+                        onValueChange={(value) => {
+                          setRotation(value[0]);
+                          setRotationInputValue(value[0].toString());
+                          setRotationError("");
+                        }}
                         className="flex-grow"
                       />
                       <RotateCw className="h-4 w-4 text-gray-400" />
@@ -285,14 +419,16 @@ export default function ImageFrameOverlay() {
                     <p className="text-xs text-gray-500 mb-2">
                       Drag the image when settings are visible
                     </p>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="w-full text-sm"
-                      onClick={() => setPosition({ x: 0, y: 0 })}
-                    >
-                      Center Image
-                    </Button>
+                    <div className="flex space-x-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="w-full text-sm"
+                        onClick={() => setPosition({ x: 0, y: 0 })}
+                      >
+                        Center Image
+                      </Button>
+                    </div>
                   </div>
                   
                   <div>
@@ -309,17 +445,38 @@ export default function ImageFrameOverlay() {
                         className="absolute top-1 right-1 h-6 w-6 p-0"
                         onClick={copyCaption}
                       >
-                        <Copy className="h-4 w-4" />
+                        {captionCopied ? (
+                          <Check className="h-4 w-4 text-green-500" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
                       </Button>
+                      
                       {captionCopied && (
-                        <div className="absolute -top-8 right-0 bg-gray-800 text-white text-xs py-1 px-2 rounded">
+                        <div className="absolute -top-8 right-0 bg-green-600 text-white text-xs py-1 px-2 rounded shadow-sm animate-fade-in">
                           Copied!
                         </div>
                       )}
                     </div>
                   </div>
                   
-                  <div className="pt-2">
+                  <div className="pt-2 space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button 
+                        variant="outline"
+                        className="text-xs h-9 w-full px-1"
+                        onClick={resetToDefault}
+                      >
+                        <RefreshCw className="mr-1 h-3 w-3" /> Default
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        className="text-xs h-9 w-full px-1"
+                        onClick={changeImage}
+                      >
+                        <Upload className="mr-1 h-3 w-3" /> Change
+                      </Button>
+                    </div>
                     <Button 
                       className="w-full bg-blue-600 hover:bg-blue-700 text-white" 
                       onClick={downloadImage}
@@ -333,6 +490,13 @@ export default function ImageFrameOverlay() {
           )}
         </div>
       </div>
+      <input 
+        id="image-upload" 
+        type="file" 
+        accept="image/*" 
+        className="hidden" 
+        onChange={handleImageUpload}
+      />
     </div>
   );
 }
