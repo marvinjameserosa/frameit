@@ -150,6 +150,7 @@ export default function ImageFrameOverlay() {
     document.getElementById('image-upload')?.click();
   };
   
+  // Mouse event handlers
   const startDrag = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!uploadedImage) return;
     if (!showSettings) {
@@ -173,6 +174,39 @@ export default function ImageFrameOverlay() {
   };
   
   const endDrag = () => {
+    setIsDragging(false);
+  };
+
+  // Touch event handlers
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!uploadedImage) return;
+    if (!showSettings) {
+      setShowSettings(true);
+      return;
+    }
+    
+    if (e.touches.length === 1) {
+      setIsDragging(true);
+      setDragStart({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y
+      });
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDragging || !showSettings) return;
+    
+    if (e.touches.length === 1) {
+      e.preventDefault(); // Prevents scrolling while dragging
+      setPosition({
+        x: e.touches[0].clientX - dragStart.x,
+        y: e.touches[0].clientY - dragStart.y
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
     setIsDragging(false);
   };
   
@@ -327,6 +361,10 @@ export default function ImageFrameOverlay() {
                 onMouseMove={duringDrag}
                 onMouseUp={endDrag}
                 onMouseLeave={endDrag}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={handleTouchEnd}
               />
               
               {!uploadedImage && (
@@ -543,7 +581,7 @@ export default function ImageFrameOverlay() {
                   </div>
                 </CardContent>
               </Card>
-                          </div>
+            </div>
           )}
         </main>
       </div>
