@@ -28,7 +28,26 @@ export default function ImageFrameOverlay() {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const caption = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in magna at quam faucibus pharetra at id dui.";
+  const caption = `⏰⚡𝗧𝗢𝗢𝗧𝗜𝗠𝗘𝗧𝗢𝗢𝗧𝗜𝗠𝗘, 𝗜𝗧'𝗦 𝗔𝗥𝗗𝗨𝗜𝗡𝗢 𝗢'𝗖𝗟𝗢𝗖𝗞! ⏰⚡ 
+  
+𝘽𝙍𝙍𝙏 𝘽𝙍𝙍𝙏! 𝙎𝙔𝙎𝙏𝙀𝙈 𝘽𝙊𝙊𝙏𝙄𝙉𝙂 𝙄𝙉… 3...2...1...⏳✅ Oh hey, innovators! I'm [Name], and I'm ready to gear up for 𝗔𝗿𝗱𝘂𝗶𝗻𝗼 𝗗𝗮𝘆 𝗣𝗵𝗶𝗹𝗶𝗽𝗽𝗶𝗻𝗲𝘀 2025—𝘵𝘩𝘦 𝘉𝘐𝘎𝘎𝘌𝘚𝘛 𝘈𝘳𝘥𝘶𝘪𝘯𝘰 𝘨𝘢𝘵𝘩𝘦𝘳𝘪𝘯𝘨 𝘧𝘰𝘳 𝘣𝘶𝘪𝘭𝘥𝘦𝘳𝘴, 𝘵𝘪𝘯𝘬𝘦𝘳𝘦𝘳𝘴, 𝘢𝘯𝘥 𝘵𝘦𝘤𝘩 𝘦𝘯𝘵𝘩𝘶𝘴𝘪𝘢𝘴𝘵𝘴!
+
+Whether you're a coding pro or just getting started, this global event is the perfect place to explore 𝗰𝘂𝘁𝘁𝗶𝗻𝗴-𝗲𝗱𝗴𝗲 𝗽𝗿𝗼𝗷𝗲𝗰𝘁𝘀, 𝗲𝘅𝗰𝗵𝗮𝗻𝗴𝗲 𝗶𝗱𝗲𝗮𝘀, 𝗮𝗻𝗱 𝘀𝗲𝗲 𝗔𝗿𝗱𝘂𝗶𝗻𝗼 𝗺𝗮𝗴𝗶𝗰 𝗶𝗻 𝗮𝗰𝘁𝗶𝗼𝗻!✨
+
+So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 𝗦𝗧𝗜 𝗖𝗼𝗹𝗹𝗲𝗴𝗲 𝗖𝘂𝗯𝗮𝗼 for a day of innovation, creativity, and hands-on tech magic. Let's build, learn, and bring ideas to life—𝙨𝙚𝙚 𝙮𝙤𝙪 𝙩𝙝𝙚𝙧𝙚! 🚀💡
+  
+𝗥𝗲𝗴𝗶𝘀𝘁𝗲𝗿 𝗛𝗲𝗿𝗲:    
+➤  https://arduinodayph.pwapilipinas.org/
+➤  https://arduinodayph.pwapilipinas.org/
+➤  https://arduinodayph.pwapilipinas.org/
+
+𝗝𝗼𝗶𝗻 𝗼𝘂𝗿 𝗗𝗣 𝗕𝗹𝗮𝘀𝘁 𝘂𝘀𝗶𝗻𝗴 𝘁𝗵𝗶𝘀 𝗹𝗶𝗻𝗸:
+➤  https://frame.arduinodayphilippines.cc/
+➤  https://frame.arduinodayphilippines.cc/
+➤  https://frame.arduinodayphilippines.cc/
+
+#ArduinoDayPH2025 #ArduinoDayPhilippines #InnovateWithArduino`;
+
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
   const [scaleInputValue, setScaleInputValue] = useState<string>("1");
   const [rotationInputValue, setRotationInputValue] = useState<string>("0");
@@ -37,7 +56,7 @@ export default function ImageFrameOverlay() {
   
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<HTMLImageElement | null>(null);
-  const frameSrc = "/frame.png";
+  const frameSrc = "/frame.svg";
   const colors = {
     bg: "bg-[#131118]",
     headerBg: "bg-[#00717A]", 
@@ -525,13 +544,15 @@ export default function ImageFrameOverlay() {
                       </Button>
                     </div>
                     
-                    {/* Caption Section */}
+                   {/* Caption Section */}
                     <div className="space-y-1">
                       <h4 className="text-sm font-medium text-gray-200">
                         Social Media Caption
                       </h4>
                       <div className="relative">
-                        <div className={`p-2 border rounded-md text-sm h-60 max-h-60 overflow-y-auto break-words ${colors.secondaryButton} border-[#00979D] text-gray-200`}>
+                        <div 
+                          className={`p-2 border rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words ${colors.secondaryButton} border-[#00979D] text-gray-200`}
+                        >
                           {caption}
                         </div>
                         <Button 
