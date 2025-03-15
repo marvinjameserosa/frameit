@@ -19,6 +19,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+
 export default function ImageFrameOverlay() {
   const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
   const [frameLoaded, setFrameLoaded] = useState<boolean>(false);
@@ -46,13 +47,21 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
 ➤  https://frame.arduinodayphilippines.cc/
 ➤  https://frame.arduinodayphilippines.cc/
 
-#ArduinoDayPH2025 #ArduinoDayPhilippines #InnovateWithArduino`;
+𝗢𝗳𝗳𝗶𝗰𝗶𝗮𝗹 𝗪𝗲𝗯𝘀𝗶𝘁𝗲:
+➤  https://www.arduinodayphilippines.cc/
+➤  https://www.arduinodayphilippines.cc/
+➤  https://www.arduinodayphilippines.cc/
 
+#ArduinoDayPH2025 #ArduinoDayPhilippines #InnovateWithArduino`;
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
   const [scaleInputValue, setScaleInputValue] = useState<string>("1");
   const [rotationInputValue, setRotationInputValue] = useState<string>("0");
   const [scaleError, setScaleError] = useState<string>("");
   const [rotationError, setRotationError] = useState<string>("");
+
+  const [initialDistance, setInitialDistance] = useState<number>(0);
+  const [initialScale, setInitialScale] = useState<number>(1);
+  const [isPinching, setIsPinching] = useState<boolean>(false);
   
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<HTMLImageElement | null>(null);
@@ -139,10 +148,27 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
       img.src = frameSrc;
     }
     
+  
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const preventDefaultTouchAction = (e: TouchEvent) => {
+        if (e.target === canvas && (isDragging || isPinching)) {
+          e.preventDefault();
+        }
+      };
+    
+      document.addEventListener('touchmove', preventDefaultTouchAction, { passive: false });
+      
+      return () => {
+        document.removeEventListener('touchmove', preventDefaultTouchAction);
+        document.head.removeChild(link);
+      };
+    }
+    
     return () => {
       document.head.removeChild(link);
     };
-  }, []);
+  }, [isDragging, isPinching]);
   
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target || !e.target.files || e.target.files.length === 0) return;
@@ -168,8 +194,7 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
   const changeImage = () => {
     document.getElementById('image-upload')?.click();
   };
-  
-  // Mouse event handlers
+
   const startDrag = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!uploadedImage) return;
     if (!showSettings) {
@@ -195,38 +220,99 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
   const endDrag = () => {
     setIsDragging(false);
   };
+  
+const getDistance = (touch1: Touch, touch2: Touch): number => {
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+};
 
-  // Touch event handlers
-  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    if (!uploadedImage) return;
-    if (!showSettings) {
-      setShowSettings(true);
-      return;
-    }
+const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+  if (!uploadedImage) return;
+  if (!showSettings) {
+    setShowSettings(true);
+    return;
+  }
+
+  if (e.touches.length === 2) {
+    setIsPinching(true);
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+    const dist = getDistance(
+      touch1 as unknown as Touch, 
+      touch2 as unknown as Touch
+    );
+    setInitialDistance(dist);
+    setInitialScale(scale);
+
+    const centerX = (touch1.clientX + touch2.clientX) / 2;
+    const centerY = (touch1.clientY + touch2.clientY) / 2;
     
-    if (e.touches.length === 1) {
-      setIsDragging(true);
-      setDragStart({
-        x: e.touches[0].clientX - position.x,
-        y: e.touches[0].clientY - position.y
+    setIsDragging(true);
+    setDragStart({
+      x: centerX - position.x,
+      y: centerY - position.y
+    });
+  } 
+  else if (e.touches.length === 1) {
+    setIsPinching(false);
+    setIsDragging(true);
+    setDragStart({
+      x: e.touches[0].clientX - position.x,
+      y: e.touches[0].clientY - position.y
+    });
+  }
+};
+
+const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+  e.preventDefault(); 
+  
+  if (!showSettings || !uploadedImage) return;
+
+  if (e.touches.length === 2 && isPinching) {
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+    const currentDistance = getDistance(
+      touch1 as unknown as Touch, 
+      touch2 as unknown as Touch
+    );
+    const newScale = initialScale * (currentDistance / initialDistance);
+
+    const boundedScale = Math.min(Math.max(newScale, 0.1), 10);
+    setScale(boundedScale);
+    setScaleInputValue(boundedScale.toFixed(1));
+
+    const centerX = (touch1.clientX + touch2.clientX) / 2;
+    const centerY = (touch1.clientY + touch2.clientY) / 2;
+    
+    if (isDragging) {
+      setPosition({
+        x: centerX - dragStart.x,
+        y: centerY - dragStart.y
       });
     }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    if (!isDragging || !showSettings) return;
-    
-    if (e.touches.length === 1) {
-      e.preventDefault(); // Prevents scrolling while dragging
+  } 
+  else if (e.touches.length === 1 && isDragging) {
+    requestAnimationFrame(() => {
       setPosition({
         x: e.touches[0].clientX - dragStart.x,
         y: e.touches[0].clientY - dragStart.y
       });
+    });
+  }
+};
+  
+  const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (isPinching && e.touches.length === 1) {
+      setIsPinching(false);
+      setDragStart({
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y
+      });
+    } else if (e.touches.length === 0) {
+      setIsDragging(false);
+      setIsPinching(false);
     }
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
   };
   
   const copyCaption = () => {
@@ -370,7 +456,7 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
         <main className="flex-grow flex flex-col md:flex-row gap-4 h-full">
           {/* Canvas Container */}
           <div className="relative flex-grow flex items-center justify-center rounded-lg p-2 md:p-4 shadow-md">
-            <div className="relative max-h-180 max-w-180 aspect-square">
+            <div className="relative max-h-180 max-w-180 aspect-square touch-none">
               <canvas 
                 ref={canvasRef}
                 width={800}
@@ -402,7 +488,6 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                     className="hidden" 
                     onChange={handleImageUpload}
                   />
-                  <p className={`mt-4 text-xs ${colors.textMuted}`}>Click to upload your image</p>
                 </div>
               )}
               
@@ -413,6 +498,16 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                 >
                   <Settings className="h-4 w-4 text-white" />
                 </button>
+              )}
+              
+              {uploadedImage && (
+                <div className="absolute bottom-4 left-4 flex gap-2">
+                  <div className={`${colors.textMuted} bg-black bg-opacity-40 px-2 py-1 rounded text-xs`}>
+                    {isPinching}
+                    {!isPinching && isDragging}
+                    {(!isPinching && !isDragging && showSettings)}
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -432,7 +527,7 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                     </button>
                   </div>
                 </CardHeader>
-                <CardContent className={` ${colors.panelBg}`}>
+                <CardContent className={`${colors.panelBg}`}>
                   <div className="space-y-4">
                     {/* Scale Control */}
                     <div className="space-y-2">
@@ -460,7 +555,14 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                       )}
                       
                       <div className="flex items-center gap-2 px-1">
-                        <button className="text-[#00979D] hover:text-[#00C8D1] transition-colors">
+                        <button 
+                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          onClick={() => {
+                            const newScale = Math.max(scale - 0.1, 0.1);
+                            setScale(newScale);
+                            setScaleInputValue(newScale.toFixed(1));
+                          }}
+                        >
                           <ZoomOut className="h-4 w-4" />
                         </button>
                         <Slider
@@ -475,7 +577,14 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                           }}
                           className="flex-grow"
                         />
-                        <button className="text-[#00979D] hover:text-[#00C8D1] transition-colors">
+                        <button 
+                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          onClick={() => {
+                            const newScale = Math.min(scale + 0.1, 10);
+                            setScale(newScale);
+                            setScaleInputValue(newScale.toFixed(1));
+                          }}
+                        >
                           <ZoomIn className="h-4 w-4" />
                         </button>
                       </div>
@@ -507,7 +616,14 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                       )}
                       
                       <div className="flex items-center gap-2 px-1">
-                        <button className="text-[#00979D] hover:text-[#00C8D1] transition-colors">
+                        <button 
+                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          onClick={() => {
+                            const newRotation = (rotation - 10 + 360) % 360;
+                            setRotation(newRotation);
+                            setRotationInputValue(newRotation.toString());
+                          }}
+                        >
                           <RotateCcw className="h-4 w-4" />
                         </button>
                         <Slider
@@ -522,7 +638,14 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                           }}
                           className="flex-grow"
                         />
-                        <button className="text-[#00979D] hover:text-[#00C8D1] transition-colors">
+                        <button 
+                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          onClick={() => {
+                            const newRotation = (rotation + 10) % 360;
+                            setRotation(newRotation);
+                            setRotationInputValue(newRotation.toString());
+                          }}
+                        >
                           <RotateCw className="h-4 w-4" />
                         </button>
                       </div>
@@ -532,7 +655,7 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
                     <div className="space-y-1">
                       <h4 className="text-sm font-medium text-gray-200">Position</h4>
                       <p className="text-xs text-gray-400">
-                        Drag the image directly to adjust its position
+                        Drag the image to adjust position, pinch to zoom
                       </p>
                       <Button 
                         variant="outline" 
