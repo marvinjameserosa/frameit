@@ -29,30 +29,23 @@ export default function ImageFrameOverlay() {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const caption = `⏰⚡𝗧𝗢𝗢𝗧𝗜𝗠𝗘𝗧𝗢𝗢𝗧𝗜𝗠𝗘, 𝗜𝗧'𝗦 𝗔𝗥𝗗𝗨𝗜𝗡𝗢 𝗢'𝗖𝗟𝗢𝗖𝗞! ⏰⚡ 
-  
-𝘽𝙍𝙍𝙏 𝘽𝙍𝙍𝙏! 𝙎𝙔𝙎𝙏𝙀𝙈 𝘽𝙊𝙊𝙏𝙄𝙉𝙂 𝙄𝙉… 3...2...1...⏳✅ Oh hey, innovators! I'm [Name], and I'm ready to gear up for 𝗔𝗿𝗱𝘂𝗶𝗻𝗼 𝗗𝗮𝘆 𝗣𝗵𝗶𝗹𝗶𝗽𝗽𝗶𝗻𝗲𝘀 2025—𝘵𝘩𝘦 𝘉𝘐𝘎𝘎𝘌𝘚𝘛 𝘈𝘳𝘥𝘶𝘪𝘯𝘰 𝘨𝘢𝘵𝘩𝘦𝘳𝘪𝘯𝘨 𝘧𝘰𝘳 𝘣𝘶𝘪𝘭𝘥𝘦𝘳𝘴, 𝘵𝘪𝘯𝘬𝘦𝘳𝘦𝘳𝘴, 𝘢𝘯𝘥 𝘵𝘦𝘤𝘩 𝘦𝘯𝘵𝘩𝘶𝘴𝘪𝘢𝘴𝘵𝘴!
+  const caption = `𝗧𝗵𝗶𝘀 𝗦𝘂𝗺𝗺𝗲𝗿, 𝗟𝗲𝘁’𝘀 𝗖𝗼𝗱𝗲 𝗮 𝗕𝗿𝗶𝗴𝗵𝘁𝗲𝗿 𝗙𝘂𝘁𝘂𝗿𝗲! 💻☀️
 
-Whether you're a coding pro or just getting started, this global event is the perfect place to explore 𝗰𝘂𝘁𝘁𝗶𝗻𝗴-𝗲𝗱𝗴𝗲 𝗽𝗿𝗼𝗷𝗲𝗰𝘁𝘀, 𝗲𝘅𝗰𝗵𝗮𝗻𝗴𝗲 𝗶𝗱𝗲𝗮𝘀, 𝗮𝗻𝗱 𝘀𝗲𝗲 𝗔𝗿𝗱𝘂𝗶𝗻𝗼 𝗺𝗮𝗴𝗶𝗰 𝗶𝗻 𝗮𝗰𝘁𝗶𝗼𝗻!✨
+Hey there future changemakers! I’m [Your Name], and this summer, we’re not just soaking up the sun—we’re harnessing its energy to fuel the future! Pantropi-code is here to make waves, bringing together brilliant minds to tackle real-world challenges through technology. 💡
 
-So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 𝗦𝗧𝗜 𝗖𝗼𝗹𝗹𝗲𝗴𝗲 𝗖𝘂𝗯𝗮𝗼 for a day of innovation, creativity, and hands-on tech magic. Let's build, learn, and bring ideas to life—𝙨𝙚𝙚 𝙮𝙤𝙪 𝙩𝙝𝙚𝙧𝙚! 🚀💡
-  
-𝗥𝗲𝗴𝗶𝘀𝘁𝗲𝗿 𝗛𝗲𝗿𝗲:    
-➤  https://arduinodayph.pwapilipinas.org/
-➤  https://arduinodayph.pwapilipinas.org/
-➤  https://arduinodayph.pwapilipinas.org/
+Join me and The Programmer’s Guild (PUP TPG) for an electrifying experience featuring expert-led webinars, a high-energy ideathon, and a vibrant community of changemakers! 🚀
 
-𝗝𝗼𝗶𝗻 𝗼𝘂𝗿 𝗗𝗣 𝗕𝗹𝗮𝘀𝘁 𝘂𝘀𝗶𝗻𝗴 𝘁𝗵𝗶𝘀 𝗹𝗶𝗻𝗸:
-➤  https://frame.arduinodayphilippines.cc/
-➤  https://frame.arduinodayphilippines.cc/
-➤  https://frame.arduinodayphilippines.cc/
+Don’t let this wave pass you by; grab your spot, bring your brightest ideas, and let's code a future as dazzling as the summer sun! 🔥
 
-𝗢𝗳𝗳𝗶𝗰𝗶𝗮𝗹 𝗪𝗲𝗯𝘀𝗶𝘁𝗲:
-➤  https://www.arduinodayphilippines.cc/
-➤  https://www.arduinodayphilippines.cc/
-➤  https://www.arduinodayphilippines.cc/
+𝗝𝗼𝗶𝗻 𝘁𝗵𝗲 𝗗𝗣 𝗕𝗹𝗮𝘀𝘁 𝗯𝘆 𝗱𝗶𝘃𝗶𝗻𝗴 𝗶𝗻𝘁𝗼 𝘁𝗵𝗲 𝗹𝗶𝗻𝗸 𝗱𝗼𝘄𝗻 𝗯𝗲𝗹𝗼𝘄:
+🔗
+🔗
+🔗
 
-#ArduinoDayPH2025 #ArduinoDayPhilippines #InnovateWithArduino`;
+𝑾𝒉𝒆𝒕𝒉𝒆𝒓 𝒚𝒐𝒖'𝒓𝒆 𝒂 𝒄𝒐𝒅𝒊𝒏𝒈 𝒘𝒉𝒊𝒛 𝒐𝒓 𝒋𝒖𝒔𝒕 𝒕𝒆𝒔𝒕𝒊𝒏𝒈 𝒕𝒉𝒆 𝒘𝒂𝒕𝒆𝒓𝒔, 𝒕𝒉𝒆 𝑰𝒔𝒍𝒂𝒏𝒅 𝒐𝒇 𝑷𝒂𝒏𝒕𝒓𝒐𝒑𝒊-𝒄𝒐𝒅𝒆 𝒘𝒆𝒍𝒄𝒐𝒎𝒆𝒔 𝒂𝒍𝒍! 🌴
+
+Pubmat by: Rein Andre Furagganan
+Caption by: Dhandrei Justin Blanco`;
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
   const [scaleInputValue, setScaleInputValue] = useState<string>("1");
   const [rotationInputValue, setRotationInputValue] = useState<string>("0");
@@ -67,28 +60,32 @@ So, what are you waiting for? 📅 Join us on 𝗠𝗮𝗿𝗰𝗵 22, 2025, at 
   const frameRef = useRef<HTMLImageElement | null>(null);
   const frameSrc = "/frame.svg";
   const colors = {
-    bg: "bg-[#131118]",
-    headerBg: "bg-[#00717A]", 
-    panelBg: "bg-[#1F2430]", 
-    accent: "bg-[#E47128]",
-    accentHover: "hover:bg-[#C05A20]", 
-    text: "text-white",
-    textMuted: "text-gray-300",
-    textDark: "text-[#00979D]", 
-    textAccent: "text-[#E47128]",
-    border: "border-[#00979D]", 
-    buttonBg: "bg-[#00979D]", 
-    buttonHover: "hover:bg-[#00717A]", 
-    buttonText: "text-white",
-    secondaryButton: "bg-[#2D3748]", 
-    secondaryButtonHover: "hover:bg-[#374151]",
-    secondaryButtonText: "text-gray-200",
-    inputBg: "bg-[#1F2430]", 
-    inputBorder: "border-[#00979D]", 
-    sliderTrack: "bg-[#2D3748]",
-    sliderRange: "bg-[#00979D]" 
+    bg: "bg-[#07003E]",
+    headerBg: "bg-[#05002D]",
+    panelBg: "bg-[#FFFFFF]",
+    
+    accent: "bg-[#4B00A3]",
+    accentHover: "hover:bg-[#6100D1]",
+    
+    text: "text-[#07003E]",
+    textMuted: "text-[#4B00A3]",
+    textDark: "text-[#4B00A3]",
+    textAccent: "text-[#6100D1]",
+    
+    border: "border-[#4B00A3]",
+    buttonBg: "bg-[#FFFFFF]",
+    buttonHover: "hover:bg-[#F0F0F0]",
+    buttonText: "text-[#07003E]",
+    
+    secondaryButton: "bg-[#F0F0F0]",
+    secondaryButtonHover: "hover:bg-[#E0E0E0]",
+    secondaryButtonText: "text-[#07003E]",
+    
+    inputBg: "bg-[#FFFFFF]",
+    inputBorder: "border-[#4B00A3]",
+    sliderTrack: "bg-[#E0E0E0]",
+    sliderRange: "bg-[#4B00A3]"
   };
-  
   const createFallbackFrame = (): string => {
     const canvas = document.createElement('canvas');
     canvas.width = 800;
@@ -447,7 +444,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
               />
             </div>
           </div>
-          <h1 className={`md:text-base ${colors.textMuted} max-w-2xl mx-auto`}>
+          <h1 className={`md:text-base text-white max-w-2xl mx-auto`}>
             Effortlessly frame your photos with just one click – made by ICPEP SE PUP
           </h1>
         </header>
@@ -474,7 +471,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
               
               {!uploadedImage && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <Upload className={`h-8 w-8 mb-4 ${colors.textDark}`} />
+                  <Upload className={`h-8 w-8 mb-4 ${colors.text}`} />
                   <Button 
                     className={`${colors.buttonBg} ${colors.buttonHover} ${colors.buttonText} font-medium px-6 py-2 text-sm rounded-md shadow-lg transition-all duration-200`}
                     onClick={() => document.getElementById('image-upload')?.click()}
@@ -515,24 +512,24 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
           {/* Settings Panel */}
           {uploadedImage && showSettings && (
             <div className="md:w-72 lg:w-80 flex-shrink-0 md:h-auto">
-              <Card className={`shadow-lg border ${colors.border} ${colors.panelBg} overflow-hidden h-full max-h-180`}>
-                <CardHeader className="px-4">
+              <Card className="shadow-lg border border-gray-200 bg-white overflow-hidden h-full max-h-180">
+                <CardHeader className="px-4 bg-gray-50 border-b border-gray-100">
                   <div className="flex justify-between items-center">
-                    <CardTitle className="text-lg font-medium text-white">Image Settings</CardTitle>
+                    <CardTitle className="text-lg font-medium text-gray-700">Image Settings</CardTitle>
                     <button 
-                      className="text-white hover:text-gray-200 md:hidden"
+                      className="text-gray-500 hover:text-gray-700 md:hidden"
                       onClick={() => setShowSettings(false)}
                     >
                       <X className="h-5 w-5" />
                     </button>
                   </div>
                 </CardHeader>
-                <CardContent className={`${colors.panelBg}`}>
+                <CardContent className="bg-white">
                   <div className="space-y-4">
                     {/* Scale Control */}
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <h4 className="text-sm font-medium text-gray-200">Scale</h4>
+                        <h4 className="text-sm font-medium text-gray-700">Scale</h4>
                         <div className="w-20">
                           <Input
                             type="number"
@@ -542,13 +539,17 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                             value={scaleInputValue}
                             onChange={handleScaleInputChange}
                             onBlur={handleScaleInputBlur}
-                            className={`h-8 text-sm border ${colors.inputBorder} ${colors.secondaryButton} text-white ${scaleError ? 'border-red-500 focus:ring-red-500' : `focus:ring-[#00979D]`}`}
+                            className={`h-8 text-sm border border-gray-300 bg-white text-gray-800 
+                              ${scaleError 
+                                ? 'border-red-500 focus:ring-red-500' 
+                                : 'focus:ring-blue-500'
+                              }`}
                           />
                         </div>
                       </div>
                       
                       {scaleError && (
-                        <div className="flex items-center gap-1 text-red-400 text-xs justify-end">
+                        <div className="flex items-center gap-1 text-red-600 text-xs justify-end">
                           <AlertCircle className="h-3 w-3" />
                           <span>{scaleError}</span>
                         </div>
@@ -556,7 +557,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                       
                       <div className="flex items-center gap-2 px-1">
                         <button 
-                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          className="text-gray-600 hover:text-gray-800 transition-colors"
                           onClick={() => {
                             const newScale = Math.max(scale - 0.1, 0.1);
                             setScale(newScale);
@@ -578,7 +579,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                           className="flex-grow"
                         />
                         <button 
-                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          className="text-gray-600 hover:text-gray-800 transition-colors"
                           onClick={() => {
                             const newScale = Math.min(scale + 0.1, 10);
                             setScale(newScale);
@@ -593,7 +594,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                     {/* Rotation Control */}
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <h4 className="text-sm font-medium text-gray-200">Rotation</h4>
+                        <h4 className="text-sm font-medium text-gray-700">Rotation</h4>
                         <div className="w-20">
                           <Input
                             type="number"
@@ -603,13 +604,17 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                             value={rotationInputValue}
                             onChange={handleRotationInputChange}
                             onBlur={handleRotationInputBlur}
-                            className={`h-8 text-sm border ${colors.inputBorder} ${colors.secondaryButton} text-white ${rotationError ? 'border-red-500 focus:ring-red-500' : `focus:ring-[#00979D]`}`}
+                            className={`h-8 text-sm border border-gray-300 bg-white text-gray-800 
+                              ${rotationError 
+                                ? 'border-red-500 focus:ring-red-500' 
+                                : 'focus:ring-blue-500'
+                              }`}
                           />
                         </div>
                       </div>
                       
                       {rotationError && (
-                        <div className="flex items-center gap-1 text-red-400 text-xs justify-end">
+                        <div className="flex items-center gap-1 text-red-600 text-xs justify-end">
                           <AlertCircle className="h-3 w-3" />
                           <span>{rotationError}</span>
                         </div>
@@ -617,7 +622,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                       
                       <div className="flex items-center gap-2 px-1">
                         <button 
-                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          className="text-gray-600 hover:text-gray-800 transition-colors"
                           onClick={() => {
                             const newRotation = (rotation - 10 + 360) % 360;
                             setRotation(newRotation);
@@ -639,7 +644,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                           className="flex-grow"
                         />
                         <button 
-                          className="text-[#00979D] hover:text-[#00C8D1] transition-colors"
+                          className="text-gray-600 hover:text-gray-800 transition-colors"
                           onClick={() => {
                             const newRotation = (rotation + 10) % 360;
                             setRotation(newRotation);
@@ -653,46 +658,46 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                     
                     {/* Position Control */}
                     <div className="space-y-1">
-                      <h4 className="text-sm font-medium text-gray-200">Position</h4>
-                      <p className="text-xs text-gray-400">
+                      <h4 className="text-sm font-medium text-gray-700">Position</h4>
+                      <p className="text-xs text-gray-500">
                         Drag the image to adjust position, pinch to zoom
                       </p>
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className={`w-full text-sm border ${colors.border} ${colors.secondaryButtonText} ${colors.secondaryButton} ${colors.secondaryButtonHover} h-8`}
+                        className="w-full text-sm border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 h-8"
                         onClick={() => setPosition({ x: 0, y: 0 })}
                       >
                         Center Image
                       </Button>
                     </div>
                     
-                   {/* Caption Section */}
+                    {/* Caption Section */}
                     <div className="space-y-1">
-                      <h4 className="text-sm font-medium text-gray-200">
+                      <h4 className="text-sm font-medium text-gray-700">
                         Social Media Caption
                       </h4>
                       <div className="relative">
                         <div 
-                          className={`p-2 border rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words ${colors.secondaryButton} border-[#00979D] text-gray-200`}
+                          className="p-2 border border-gray-200 rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words bg-gray-50 text-gray-800"
                         >
                           {caption}
                         </div>
                         <Button 
                           size="sm" 
                           variant="ghost" 
-                          className={`absolute top-1 right-1 h-6 w-6 p-0 text-[#00979D] hover:text-[#00C8D1]`}
+                          className="absolute top-1 right-1 h-6 w-6 p-0 text-gray-600 hover:text-gray-800"
                           onClick={copyCaption}
                         >
                           {captionCopied ? (
-                            <Check className="h-3 w-3 text-green-500" />
+                            <Check className="h-3 w-3 text-green-600" />
                           ) : (
                             <Copy className="h-3 w-3" />
                           )}
                         </Button>
                         
                         {captionCopied && (
-                          <div className="absolute -top-6 right-0 bg-[#00979D] text-white text-xs py-1 px-2 rounded shadow-sm">
+                          <div className="absolute -top-6 right-0 bg-gray-700 text-white text-xs py-1 px-2 rounded shadow-sm">
                             Copied!
                           </div>
                         )}
@@ -703,21 +708,21 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                     <div className="pt-1 grid grid-cols-2 gap-2">
                       <Button 
                         variant="outline"
-                        className={`h-8 w-full px-2 border ${colors.border} ${colors.secondaryButtonText} ${colors.secondaryButton} ${colors.secondaryButtonHover} text-sm font-medium`}
+                        className="h-8 w-full px-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
                         onClick={resetToDefault}
                       >
                         <RefreshCw className="mr-1 h-4 w-4" /> Reset
                       </Button>
                       <Button 
                         variant="outline"
-                        className={`h-8 w-full px-2 border ${colors.border} ${colors.secondaryButtonText} ${colors.secondaryButton} ${colors.secondaryButtonHover} text-sm font-medium`}
+                        className="h-8 w-full px-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
                         onClick={changeImage}
                       >
                         <Upload className="mr-1 h-4 w-4" /> Change
                       </Button>
                     </div>
                     <Button 
-                      className={`w-full h-9 ${colors.accent} ${colors.accentHover} text-white font-medium text-sm shadow-md`} 
+                      className="w-full h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm shadow-md" 
                       onClick={downloadImage}
                     >
                       <Download className="mr-2 h-4 w-4" /> Download Image
@@ -725,6 +730,7 @@ const handleTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
                   </div>
                 </CardContent>
               </Card>
+
             </div>
           )}
         </main>
