@@ -38,9 +38,9 @@ Join me and The Programmer’s Guild (PUP TPG) for an electrifying experience fe
 Don’t let this wave pass you by; grab your spot, bring your brightest ideas, and let's code a future as dazzling as the summer sun! 🔥
 
 𝗝𝗼𝗶𝗻 𝘁𝗵𝗲 𝗗𝗣 𝗕𝗹𝗮𝘀𝘁 𝗯𝘆 𝗱𝗶𝘃𝗶𝗻𝗴 𝗶𝗻𝘁𝗼 𝘁𝗵𝗲 𝗹𝗶𝗻𝗸 𝗱𝗼𝘄𝗻 𝗯𝗲𝗹𝗼𝘄:
-🔗
-🔗
-🔗
+🔗 https://pantropicode.vercel.app/
+🔗 https://pantropicode.vercel.app/
+🔗 https://pantropicode.vercel.app/
 
 𝑾𝒉𝒆𝒕𝒉𝒆𝒓 𝒚𝒐𝒖'𝒓𝒆 𝒂 𝒄𝒐𝒅𝒊𝒏𝒈 𝒘𝒉𝒊𝒛 𝒐𝒓 𝒋𝒖𝒔𝒕 𝒕𝒆𝒔𝒕𝒊𝒏𝒈 𝒕𝒉𝒆 𝒘𝒂𝒕𝒆𝒓𝒔, 𝒕𝒉𝒆 𝑰𝒔𝒍𝒂𝒏𝒅 𝒐𝒇 𝑷𝒂𝒏𝒕𝒓𝒐𝒑𝒊-𝒄𝒐𝒅𝒆 𝒘𝒆𝒍𝒄𝒐𝒎𝒆𝒔 𝒂𝒍𝒍! 🌴
 
