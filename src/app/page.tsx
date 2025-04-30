@@ -29,23 +29,13 @@ export default function ImageFrameOverlay() {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const caption = `𝗧𝗵𝗶𝘀 𝗦𝘂𝗺𝗺𝗲𝗿, 𝗟𝗲𝘁’𝘀 𝗖𝗼𝗱𝗲 𝗮 𝗕𝗿𝗶𝗴𝗵𝘁𝗲𝗿 𝗙𝘂𝘁𝘂𝗿𝗲! 💻☀️
+  const caption = `𝑪𝒉𝒂𝒓𝒈𝒆 𝒚𝒐𝒖𝒓 𝒄𝒖𝒓𝒊𝒐𝒔𝒊𝒕𝒚 𝒂𝒏𝒅 𝒍𝒆𝒕 𝒚𝒐𝒖𝒓 𝒎𝒊𝒏𝒅 𝑺𝑷𝑨𝑹𝑲 𝒘𝒊𝒕𝒉 𝒊𝒏𝒏𝒐𝒗𝒂𝒕𝒊𝒐𝒏
+— because knowledge is the brightest light we can ignite. 💡✨
 
-Hey there future changemakers! I’m [Your Name], and this summer, we’re not just soaking up the sun—we’re harnessing its energy to fuel the future! Pantropi-code is here to make waves, bringing together brilliant minds to tackle real-world challenges through technology. 💡
+Hi! I’m [NAME], from BSCpE X-X of the Polytechnic University of the Philippines – Manila, and I’m beyond excited to invite you to the 7th Edition of Software Engineering Day 2025 with the theme: SPARK! 🔥💻
 
-Join me and The Programmer’s Guild (PUP TPG) for an electrifying experience featuring expert-led webinars, a high-energy ideathon, and a vibrant community of changemakers! 🚀
-
-Don’t let this wave pass you by; grab your spot, bring your brightest ideas, and let's code a future as dazzling as the summer sun! 🔥
-
-𝗝𝗼𝗶𝗻 𝘁𝗵𝗲 𝗗𝗣 𝗕𝗹𝗮𝘀𝘁 𝗯𝘆 𝗱𝗶𝘃𝗶𝗻𝗴 𝗶𝗻𝘁𝗼 𝘁𝗵𝗲 𝗹𝗶𝗻𝗸 𝗱𝗼𝘄𝗻 𝗯𝗲𝗹𝗼𝘄:
-🔗 https://pantropicode.vercel.app/
-🔗 https://pantropicode.vercel.app/
-🔗 https://pantropicode.vercel.app/
-
-𝑾𝒉𝒆𝒕𝒉𝒆𝒓 𝒚𝒐𝒖'𝒓𝒆 𝒂 𝒄𝒐𝒅𝒊𝒏𝒈 𝒘𝒉𝒊𝒛 𝒐𝒓 𝒋𝒖𝒔𝒕 𝒕𝒆𝒔𝒕𝒊𝒏𝒈 𝒕𝒉𝒆 𝒘𝒂𝒕𝒆𝒓𝒔, 𝒕𝒉𝒆 𝑰𝒔𝒍𝒂𝒏𝒅 𝒐𝒇 𝑷𝒂𝒏𝒕𝒓𝒐𝒑𝒊-𝒄𝒐𝒅𝒆 𝒘𝒆𝒍𝒄𝒐𝒎𝒆𝒔 𝒂𝒍𝒍! 🌴
-
-Pubmat by: Rein Andre Furagganan
-Caption by: Dhandrei Justin Blanco`;
+Expect powerful talks, fresh insights, and a whole lot of inspiration that’ll leave your brain buzzing. 🧠 Get ready to explore emerging technologies, bold ideas, and the digital shifts shaping tomorrow. 🌐
+Whether you're a techie or just tech-curious, this tech-talks will challenge the way you think and ignite your drive to create meaningful change. 💡⚙️🔥`;
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
   const [scaleInputValue, setScaleInputValue] = useState<string>("1");
   const [rotationInputValue, setRotationInputValue] = useState<string>("0");
@@ -58,7 +48,7 @@ Caption by: Dhandrei Justin Blanco`;
   
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameRef = useRef<HTMLImageElement | null>(null);
-  const frameSrc = "/frame.svg";
+  const frameSrc = "/frame.png";
   const colors = {
     bg: "bg-[#07003E]",
     headerBg: "bg-[#05002D]",
