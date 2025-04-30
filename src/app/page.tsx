@@ -29,13 +29,39 @@ export default function ImageFrameOverlay() {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const caption = `𝑪𝒉𝒂𝒓𝒈𝒆 𝒚𝒐𝒖𝒓 𝒄𝒖𝒓𝒊𝒐𝒔𝒊𝒕𝒚 𝒂𝒏𝒅 𝒍𝒆𝒕 𝒚𝒐𝒖𝒓 𝒎𝒊𝒏𝒅 𝑺𝑷𝑨𝑹𝑲 𝒘𝒊𝒕𝒉 𝒊𝒏𝒏𝒐𝒗𝒂𝒕𝒊𝒐𝒏
-— because knowledge is the brightest light we can ignite. 💡✨
+  const caption = `𝑪𝒉𝒂𝒓𝒈𝒆 𝒚𝒐𝒖𝒓 𝒄𝒖𝒓𝒊𝒐𝒔𝒊𝒕𝒚 𝒂𝒏𝒅 𝒍𝒆𝒕 𝒚𝒐𝒖𝒓 𝒎𝒊𝒏𝒅 𝑺𝑷𝑨𝑹𝑲 𝒘𝒊𝒕𝒉 𝒊𝒏𝒏𝒐𝒗𝒂𝒕𝒊𝒐𝒏 — because knowledge is the brightest light we can ignite. 💡✨
 
 Hi! I’m [NAME], from BSCpE X-X of the Polytechnic University of the Philippines – Manila, and I’m beyond excited to invite you to the 7th Edition of Software Engineering Day 2025 with the theme: SPARK! 🔥💻
 
 Expect powerful talks, fresh insights, and a whole lot of inspiration that’ll leave your brain buzzing. 🧠 Get ready to explore emerging technologies, bold ideas, and the digital shifts shaping tomorrow. 🌐
-Whether you're a techie or just tech-curious, this tech-talks will challenge the way you think and ignite your drive to create meaningful change. 💡⚙️🔥`;
+
+Whether you're a techie or just tech-curious, this tech-talks will challenge the way you think and ignite your drive to create meaningful change. 💡⚙️🔥
+
+🔗 Join the DP Blast here:
+https://dpsed2025.vercel.app/
+https://dpsed2025.vercel.app/
+https://dpsed2025.vercel.app/
+
+👥 𝐈𝐧 𝐜𝐨𝐥𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐢𝐨𝐧 𝐰𝐢𝐭𝐡:
+BSCPE 4-1 & BSCPE 4-2
+𝐂𝐨-𝐁𝐫𝐨𝐮𝐠𝐡𝐭 𝐭𝐨 𝐲𝐨𝐮 𝐛𝐲:
+AcadArena
+Pocky
+STEAMlab
+CaviteTech JV
+
+🤝 𝐈𝐧 𝐏𝐚𝐫𝐭𝐧𝐞𝐫𝐬𝐡𝐢𝐩 𝐰𝐢𝐭𝐡:
+Cisco NetConnect PUP - Manila
+ICPEP Student Edition - PUP Manila
+ACCESS
+MRSP - PUP Student Edition
+PUP Association of DOST Scholars - PUP ADS
+
+🔁 Share this post, tag your tropa, and flood the comments below!
+Let’s spread the spark and make #SEDSPARK2025 trend! 💥💛❤️
+𝑩𝒆 𝒑𝒂𝒓𝒕 𝒐𝒇 𝒕𝒉𝒆 𝒔𝒑𝒂𝒓𝒌. 𝑻𝒉𝒆 𝒇𝒖𝒕𝒖𝒓𝒆 𝒔𝒕𝒂𝒓𝒕𝒔 𝒘𝒊𝒕𝒉 𝒀𝑶𝑼. ⚡
+#7thSED2025
+#SEDSPARK2025`;
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
   const [scaleInputValue, setScaleInputValue] = useState<string>("1");
   const [rotationInputValue, setRotationInputValue] = useState<string>("0");
