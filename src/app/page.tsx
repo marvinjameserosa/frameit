@@ -70,7 +70,7 @@ export default function ImageFrameOverlay() {
 
 Step inside in the realm of doors with Synth, Cody, and Devi! As it is time for Unlock()! 🔓
 
-The yearly flagship event by the 𝐓𝐏𝐆 𝐢𝐬 𝐧𝐨𝐰 𝐡𝐞𝐫𝐞! Now venturing on dimensions we’ve yet to be in before. 🌟 𝐍𝐞𝐰 𝐡𝐨𝐫𝐢𝐳𝐨𝐧𝐬 𝐛𝐮𝐭 𝐬𝐭𝐢𝐥𝐥 𝐭𝐨𝐮𝐜𝐡𝐢𝐧𝐠 𝐭𝐨𝐩𝐢𝐜𝐬 that caters 𝘦𝘷𝘦𝘳𝘺 𝘵𝘦𝘤𝘩 𝘴𝘵𝘶𝘥𝘦𝘯𝘵𝘴, 𝘦𝘯𝘵𝘩𝘶𝘴𝘪𝘢𝘴𝘵𝘴, 𝘢𝘯𝘥 𝘴𝘤𝘩𝘰𝘭𝘢𝘳𝘴!
+The yearly flagship event by the 𝐓𝐏𝐆 𝐢𝐬 𝐧𝐨𝐰 𝐡𝐞𝐫𝐞! Now venturing on dimensions we’ve yet to be in before. 🌟 𝐍𝐞𝐰 𝐡𝐨𝐫𝐢𝐳𝐨𝐧𝐭𝐬 𝐛𝐮𝐭 𝐬𝐭𝐢𝐥𝐥 𝐭𝐨𝐮𝐜𝐡𝐢𝐧𝐠 𝐭𝐨𝐩𝐢𝐜𝐬 that caters 𝘦𝘷𝘦𝘳𝘺 𝘵𝘦𝘤𝘩 𝘴𝘵𝘶𝘥𝘦𝘯𝘵𝘴, 𝘦𝘯𝘵𝘩𝘶𝘴𝘪𝘢𝘴𝘵𝘴, 𝘢𝘯𝘥 𝘴𝘤𝘩𝘰𝘭𝘢𝘳𝘴!
 
 𝙏𝙝𝙞𝙨 𝙞𝙨 𝙣𝙤𝙩 𝙮𝙤𝙪𝙧 𝙩𝙮𝙥𝙞𝙘𝙖𝙡 𝙥𝙖𝙩𝙘𝙝 𝙣𝙤𝙩𝙚𝙨, 𝙨𝙤 𝙗𝙚𝙩𝙩𝙚𝙧 𝙩𝙖𝙠𝙚 𝙣𝙤𝙩𝙚𝙨 𝙤𝙛 𝙬𝙝𝙖𝙩’𝙨 𝙖𝙗𝙤𝙪𝙩 𝙩𝙤 𝙪𝙣𝙛𝙤𝙡𝙙 𝙤𝙣𝙘𝙚 𝙩𝙝𝙚 𝙙𝙤𝙤𝙧𝙨 𝙤𝙥𝙚𝙣 🚪
 
@@ -205,7 +205,7 @@ Forge your own key and unlock the first door towards success.🌟
   };
   const onMouseUpOrLeave = () => setIsDragging(false);
 
-  const getTouchDistance = (touches: TouchList) => {
+  const getTouchDistance = (touches: React.TouchList): number => {
     const [touch1, touch2] = [touches[0], touches[1]];
     return Math.hypot(
       touch2.clientX - touch1.clientX,
