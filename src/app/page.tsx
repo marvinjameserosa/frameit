@@ -160,14 +160,14 @@ Forge your own key and unlock the first door towards success.🌟
   }, [uploadedImage, scale, position, rotation, frameLoaded]);
 
   // == EVENT HANDLERS == //
-  const handleImageUpload = (e) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = (event: ProgressEvent<FileReader>) => {
         const img = new window.Image();
         img.crossOrigin = "anonymous";
-        img.src = event.target?.result;
+        img.src = event.target?.result as string;
         img.onload = () => {
           setUploadedImage(img);
           resetToDefault();
@@ -177,7 +177,7 @@ Forge your own key and unlock the first door towards success.🌟
     }
     if (e.target) e.target.value = "";
   };
-  const logToServer = (level, message, data = {}) => {
+  const logToServer = (level: string, message: string, data = {}) => {
     fetch("/api/log", {
       method: "POST",
       headers: {
@@ -194,18 +194,18 @@ Forge your own key and unlock the first door towards success.🌟
     fileInputRef.current?.click();
   };
 
-  const onMouseDown = (e) => {
+  const onMouseDown = (e: React.MouseEvent) => {
     if (!uploadedImage) return;
     setIsDragging(true);
     setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
   };
-  const onMouseMove = (e) => {
+  const onMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
     setPosition({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
   };
   const onMouseUpOrLeave = () => setIsDragging(false);
 
-  const getTouchDistance = (touches) => {
+  const getTouchDistance = (touches: TouchList) => {
     const [touch1, touch2] = [touches[0], touches[1]];
     return Math.hypot(
       touch2.clientX - touch1.clientX,
@@ -213,7 +213,7 @@ Forge your own key and unlock the first door towards success.🌟
     );
   };
 
-  const onTouchStart = (e) => {
+  const onTouchStart = (e: React.TouchEvent) => {
     if (!uploadedImage) return;
     e.preventDefault();
     const touches = e.touches;
@@ -229,7 +229,7 @@ Forge your own key and unlock the first door towards success.🌟
       });
     }
   };
-  const onTouchMove = (e) => {
+  const onTouchMove = (e: React.TouchEvent) => {
     if (!uploadedImage) return;
     e.preventDefault();
     const touches = e.touches;
