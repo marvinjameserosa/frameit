@@ -102,7 +102,10 @@ Forge your own key and unlock the first door towards success.🌟
 
 #PUPTheProgrammersGuild
 #FindingTheRightKey
-#UnlockTPG`;
+#UnlockTPG
+
+Pubmat by: Denie Rose Bon
+Caption by: Rein Andre Furagganan`;
 
   // == CORE LOGIC & EFFECTS == //
   const defaultSettings = {
