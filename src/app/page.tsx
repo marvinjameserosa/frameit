@@ -328,7 +328,7 @@ Forge your own key and unlock the first door towards success.🌟
           error: error instanceof Error ? error.message : String(error),
         });
         alert(
-          "There was an error creating your image for download. Please try again."
+          "There was an error creating your image for download. Please open app in a external browser."
         );
         setIsDownloading(false); // Ensure loading stops on error
       }
