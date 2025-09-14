@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  ChangeEvent,
-  MouseEvent,
-  TouchEvent,
-} from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import { processImage } from "./actions";
 
@@ -31,20 +23,6 @@ import {
 } from "lucide-react";
 
 import Header from "@/components/sections/Header";
-
-// A helper function to send logs to your server
-const logToServer = (level, message, data = {}) => {
-  fetch("/api/log", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ level, message, data }),
-  }).catch((error) => {
-    // This console.error is for the client's browser console
-    console.error("Failed to send log to server:", error);
-  });
-};
 
 export default function ImageFrameOverlay() {
   // == STATE MANAGEMENT == //
@@ -114,7 +92,9 @@ Learn more about the Happenings, you can read it here on Unlock’s Playbook!
 🔗https://bit.ly/TPGUnlock-Registration 
 
 𝐉𝐨𝐢𝐧 𝐭𝐡𝐞 𝐃𝐏 𝐁𝐥𝐚𝐬𝐭 𝐭𝐡𝐫𝐨𝐮𝐠𝐡 𝐭𝐡𝐢𝐬 𝐥𝐢𝐧𝐤:
-🔗
+🔗https://tpgunlocked.vercel.app/
+🔗https://tpgunlocked.vercel.app/
+🔗https://tpgunlocked.vercel.app/
 
 Follow us in these links to keep you updated on our latest happenings:
 Facebook: https://www.facebook.com/PUPTPG 
@@ -344,10 +324,10 @@ Forge your own key and unlock the first door towards success.🌟
 
         // Redirect to trigger download
         window.location.href = url;
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Full error object:", error); // <-- DEBUG
         logToServer("error", "Server-side image creation failed.", {
-          error: error.message,
+          error: error instanceof Error ? error.message : String(error),
         });
         alert(
           "There was an error creating your image for download. Please try again."
@@ -383,12 +363,12 @@ Forge your own key and unlock the first door towards success.🌟
         document.body.removeChild(link);
 
         setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
-      } catch (error: any) {
+      } catch (error: unknown) {
         logToServer(
           "error",
           "An error occurred during standard Blob/Link download.",
           {
-            error: error.message,
+            error: error instanceof Error ? error.message : String(error),
           }
         );
       } finally {
