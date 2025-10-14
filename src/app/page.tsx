@@ -1,31 +1,18 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-import {
-  Download,
-  Upload,
-  ZoomIn,
-  ZoomOut,
-  RotateCw,
-  RotateCcw,
-  X,
-  Settings,
-  Copy,
-  RefreshCw,
-  Check,
-  AlertCircle,
-} from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Download, Copy, Check } from "lucide-react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Dropzone from "@/components/dropzone";
+import Editor from "@/components/editor";
+import Canvas from "@/components/canvas";
 
 export default function ImageFrameOverlay() {
   const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(
     null
   );
-  const [frameLoaded, setFrameLoaded] = useState<boolean>(false);
   const [scale, setScale] = useState<number>(1);
   const [position, setPosition] = useState<{ x: number; y: number }>({
     x: 0,
@@ -38,28 +25,37 @@ export default function ImageFrameOverlay() {
     y: 0,
   });
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const caption = `𝐓𝐡𝐞 𝐟𝐮𝐭𝐮𝐫𝐞 𝐬𝐭𝐚𝐫𝐭𝐬 𝐰𝐢𝐭𝐡 𝐮𝐬. 𝐓𝐡𝐞 𝐢𝐧𝐧𝐨𝐯𝐚𝐭𝐨𝐫𝐬, 𝐭𝐡𝐞 𝐯𝐢𝐬𝐢𝐨𝐧𝐚𝐫𝐢𝐞𝐬, 𝐭𝐡𝐞 𝐂𝐨𝐄𝐛𝐢𝐠𝐚𝐧𝐬. ⚙️
+  const caption = `🦸‍♂️ 𝐒𝐏𝐀𝐑𝐊𝐘, 𝐋𝐄𝐓'𝐒 𝐆𝐎 𝐒𝐔𝐏𝐄𝐑!⚡
+I’m [name] and I am ready to create, connect, and and make the greatest impact! 💥
 
-I’m [Name] from BSCpE [Year & Section], ready to prove that CoEbigans are built to innovate, lead, and excel.
 
-As we open a new chapter through this year’s PUP CpE Freshmen Orientation, General Assembly, and Hardhatting Ceremony, with the theme “𝐈𝐧𝐧𝐨𝐯𝐚𝐭𝐢𝐧𝐠 𝐁𝐞𝐲𝐨𝐧𝐝 𝟐𝟎𝟐𝟓: 𝐆𝐮𝐢𝐝𝐞𝐝 𝐄𝐦𝐩𝐨𝐰𝐞𝐫𝐦𝐞𝐧𝐭, 𝐀𝐝𝐯𝐚𝐧𝐜𝐞𝐦𝐞𝐧𝐭, 𝐚𝐧𝐝 𝐑𝐞𝐜𝐨𝐠𝐧𝐢𝐭𝐢𝐨𝐧 𝐭𝐨𝐰𝐚𝐫𝐝 𝐚 𝐅𝐮𝐭𝐮𝐫𝐞-𝐑𝐞𝐚𝐝𝐲 𝐂𝐨𝐦𝐩𝐮𝐭𝐞𝐫 𝐄𝐧𝐠𝐢𝐧𝐞𝐞𝐫𝐢𝐧𝐠 𝐏𝐫𝐨𝐠𝐫𝐚𝐦,” we move forward together, committed to growth, excellence, and innovation in the field of Computer Engineering.
+Let's light up this school year💡one line of code 🟡, one idea 🔵, and one spark at a time ⚪. Ready to serve with 𝙋assion, 𝙋urpose, and 𝙋eople 〰️ always the Sparky Way. 🦸
 
-Let’s light up the feed with innovation! Join the DP Blast and showcase your CoEbigan pride as we gear up for a future built to innovate.
 
-Join the DP blast through this link:
--
+🗣️ 𝗦𝗜𝗚𝗡 𝗨𝗣 𝗢𝗥 𝗦𝗢𝗔𝗥 𝗔𝗪𝗔𝗬!🚀
+Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM, and light up the sky! ⚡
+🔗 https://forms.gle/tcdJUtSBozvCxntHA
+🔗 https://forms.gle/tcdJUtSBozvCxntHA
+🔗 https://forms.gle/tcdJUtSBozvCxntHA
 
-Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
 
-#CpEGeneralAssembly2025
-#InnovatingBeyond2025
-#PUPACCESS #ICPEPSEPUP`;
+⏰ Apply until October 19
+
+
+🗣️ 𝙎𝙥𝙖𝙧𝙠𝙮’𝙨 𝙘𝙖𝙡𝙡𝙞𝙣𝙜… grab your DP frame below and soar high! 
+🔗 https://gdgmembership.vercel.app/
+🔗 https://gdgmembership.vercel.app/
+🔗 https://gdgmembership.vercel.app/
+
+
+✍🏽 Spiel by 𝘑𝘢𝘥𝘦 𝘚𝘩𝘢𝘯𝘢 & 𝘎𝘪𝘢𝘯𝘯𝘦 𝘋𝘢𝘴𝘤𝘰
+🎨 Mascot by 𝘊𝘺𝘳𝘶𝘻 𝘈𝘳𝘤𝘢𝘯
+🖼️ Frame by 𝘋𝘢𝘺𝘯𝘦 𝘔𝘦𝘯𝘥𝘰𝘻𝘢`;
   const [captionCopied, setCaptionCopied] = useState<boolean>(false);
   const [scaleInputValue, setScaleInputValue] = useState<string>("1");
   const [rotationInputValue, setRotationInputValue] = useState<string>("0");
   const [scaleError, setScaleError] = useState<string>("");
   const [rotationError, setRotationError] = useState<string>("");
-  const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<string>("");
 
   const [initialDistance, setInitialDistance] = useState<number>(0);
@@ -67,49 +63,7 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
   const [isPinching, setIsPinching] = useState<boolean>(false);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const frameRef = useRef<HTMLImageElement | null>(null);
-  const frameSrc = "/frame.png";
-  const colors = {
-    bg: "bg-[#FFFFFF]",
-    headerBg: "bg-[#05002D]",
-    panelBg: "bg-[#FFFFFF]",
-
-    accent: "bg-[#4B00A3]",
-    accentHover: "hover:bg-[#6100D1]",
-
-    text: "text-[#07003E]",
-    textMuted: "text-[#4B00A3]",
-    textDark: "text-[#4B00A3]",
-    textAccent: "text-[#6100D1]",
-
-    border: "border-[#4B00A3]",
-    buttonBg: "bg-[#FFFFFF]",
-    buttonHover: "hover:bg-[#F0F0F0]",
-    buttonText: "text-[#07003E]",
-
-    secondaryButton: "bg-[#F0F0F0]",
-    secondaryButtonHover: "hover:bg-[#E0E0E0]",
-    secondaryButtonText: "text-[#07003E]",
-
-    inputBg: "bg-[#FFFFFF]",
-    inputBorder: "border-[#4B00A3]",
-    sliderTrack: "bg-[#E0E0E0]",
-    sliderRange: "bg-[#4B00A3]",
-  };
-  const createFallbackFrame = (): string => {
-    const canvas = document.createElement("canvas");
-    canvas.width = 800;
-    canvas.height = 800;
-    const ctx = canvas.getContext("2d");
-    if (ctx) {
-      ctx.fillStyle = "#131118";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "#00979D";
-      ctx.lineWidth = 20;
-      ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
-    }
-    return canvas.toDataURL("image/png");
-  };
+  const frameSrc = "frame.png";
 
   const resetToDefault = useCallback(() => {
     setScale(1);
@@ -119,25 +73,6 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
     setRotationInputValue("0");
     setScaleError("");
     setRotationError("");
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const img = new window.Image();
-      img.onload = () => {
-        frameRef.current = img;
-        setFrameLoaded(true);
-      };
-      img.onerror = () => {
-        const fallbackDataUrl = createFallbackFrame();
-        img.onload = () => {
-          frameRef.current = img;
-          setFrameLoaded(true);
-        };
-        img.src = fallbackDataUrl;
-      };
-      img.src = frameSrc;
-    }
   }, []);
 
   useEffect(() => {
@@ -177,16 +112,6 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
     reader.readAsDataURL(file);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target || !e.target.files || e.target.files.length === 0) return;
-    const file = e.target.files[0];
-    if (file) loadImageFromFile(file);
-  };
-
-  const changeImage = () => {
-    document.getElementById("image-upload")?.click();
-  };
-
   const startDrag = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!uploadedImage) return;
     if (!showSettings) {
@@ -212,8 +137,6 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
   const endDrag = () => {
     setIsDragging(false);
   };
-
-  // drag-and-drop handled inline on the container to avoid extra handlers
 
   const getDistance = (touch1: Touch, touch2: Touch): number => {
     const dx = touch1.clientX - touch2.clientX;
@@ -383,126 +306,9 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
     }
   };
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    try {
-      if (uploadedImage) {
-        ctx.save();
-        ctx.translate(
-          canvas.width / 2 + position.x,
-          canvas.height / 2 + position.y
-        );
-        ctx.rotate((rotation * Math.PI) / 180);
-        ctx.drawImage(
-          uploadedImage,
-          (-uploadedImage.width * scale) / 2,
-          (-uploadedImage.height * scale) / 2,
-          uploadedImage.width * scale,
-          uploadedImage.height * scale
-        );
-
-        ctx.restore();
-      }
-      if (frameRef.current && frameLoaded) {
-        ctx.drawImage(frameRef.current, 0, 0, canvas.width, canvas.height);
-      }
-    } catch (error) {
-      console.error("Error drawing on canvas:", error);
-    }
-  }, [uploadedImage, scale, position, rotation, frameLoaded]);
-
-  const fitToCanvas = () => {
-    if (!uploadedImage || !canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const scaleX = canvas.width / uploadedImage.width;
-    const scaleY = canvas.height / uploadedImage.height;
-    const newScale = Math.min(scaleX, scaleY);
-    const boundedScale = Math.min(Math.max(newScale, 0.1), 10);
-    setScale(boundedScale);
-    setScaleInputValue(boundedScale.toFixed(2));
-    setPosition({ x: 0, y: 0 });
+  const handleDraw = (canvas: HTMLCanvasElement) => {
+    canvasRef.current = canvas;
   };
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (!uploadedImage) return;
-      const target = e.target as HTMLElement | null;
-      if (
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.isContentEditable)
-      ) {
-        return;
-      }
-      const moveStep = e.shiftKey ? 20 : 10;
-      switch (e.key) {
-        case "ArrowUp":
-          e.preventDefault();
-          setPosition((p) => ({ x: p.x, y: p.y - moveStep }));
-          break;
-        case "ArrowDown":
-          e.preventDefault();
-          setPosition((p) => ({ x: p.x, y: p.y + moveStep }));
-          break;
-        case "ArrowLeft":
-          e.preventDefault();
-          setPosition((p) => ({ x: p.x - moveStep, y: p.y }));
-          break;
-        case "ArrowRight":
-          e.preventDefault();
-          setPosition((p) => ({ x: p.x + moveStep, y: p.y }));
-          break;
-        case "+":
-        case "=":
-          e.preventDefault();
-          setScale((s) => {
-            const next = Math.min(s + 0.1, 10);
-            setScaleInputValue(next.toFixed(1));
-            return next;
-          });
-          break;
-        case "-":
-          e.preventDefault();
-          setScale((s) => {
-            const next = Math.max(s - 0.1, 0.1);
-            setScaleInputValue(next.toFixed(1));
-            return next;
-          });
-          break;
-        case "[":
-          e.preventDefault();
-          setRotation((r) => {
-            const next = (r - 1 + 360) % 360;
-            setRotationInputValue(next.toString());
-            return next;
-          });
-          break;
-        case "]":
-          e.preventDefault();
-          setRotation((r) => {
-            const next = (r + 1) % 360;
-            setRotationInputValue(next.toString());
-            return next;
-          });
-          break;
-        case "0":
-          e.preventDefault();
-          resetToDefault();
-          break;
-        default:
-          break;
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [uploadedImage, resetToDefault]);
 
   const downloadImage = async () => {
     if (!canvasRef.current) return;
@@ -611,325 +417,90 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
           <div
             className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border shadow-2xl w-auto h-auto mx-auto backdrop-blur-sm transition-all duration-300 ${
               uploadedImage ? "bg-white/95" : "bg-white/80"
-            } ${!uploadedImage || isDragOver ? "border-dashed" : ""} ${
-              isDragOver
-                ? "ring-4 ring-primary/40 border-primary scale-[1.02]"
-                : "border-gray-200/60"
             }`}
-            onDragOver={(e) => {
-              e.preventDefault();
-              setIsDragOver(true);
-            }}
-            onDragLeave={() => setIsDragOver(false)}
-            onDrop={(e) => {
-              e.preventDefault();
-              setIsDragOver(false);
-              const file = e.dataTransfer?.files?.[0];
-              if (file) loadImageFromFile(file);
-            }}
           >
             <div className="relative max-h-180 max-w-180 aspect-square touch-none">
-              <canvas
-                ref={canvasRef}
-                width={800}
-                height={800}
-                className={`w-full h-full object-contain rounded shadow-sm ${
-                  uploadedImage ? "cursor-pointer" : ""
-                }`}
-                onMouseDown={startDrag}
-                onMouseMove={duringDrag}
-                onMouseUp={endDrag}
-                onMouseLeave={endDrag}
+              <Canvas
+                uploadedImage={uploadedImage}
+                scale={scale}
+                position={position}
+                rotation={rotation}
+                frameSrc={frameSrc}
+                onDraw={handleDraw}
+                onDragStart={startDrag}
+                onDrag={duringDrag}
+                onDragEnd={endDrag}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
-                onTouchCancel={handleTouchEnd}
               />
-
               {!uploadedImage && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
-                  <Upload className={`h-8 w-8 text-primary`} />
-                  <div className="text-sm text-gray-600 max-w-[14rem] hidden sm:block">
-                    Drag & drop an image here or
-                  </div>
-                  <Button
-                    aria-label="Upload image"
-                    className={`${colors.buttonBg} ${colors.buttonHover} ${colors.buttonText} font-medium px-6 py-2 text-sm rounded-md shadow-lg transition-all duration-200`}
-                    onClick={() =>
-                      document.getElementById("image-upload")?.click()
-                    }
-                  >
-                    Upload Image
-                  </Button>
-                  {uploadError && (
-                    <div className="text-xs text-red-600">{uploadError}</div>
-                  )}
+                <div className="absolute inset-0">
+                  <Dropzone
+                    onImageUpload={loadImageFromFile}
+                    uploadError={uploadError}
+                  />
                 </div>
               )}
-
-              {uploadedImage && !showSettings && (
-                <button
-                  className={`absolute bottom-4 right-4 ${colors.buttonBg} ${colors.buttonHover} p-2 rounded-full shadow-lg transition-all duration-200`}
-                  onClick={() => setShowSettings(true)}
-                  title="Open settings"
-                  aria-label="Open settings"
-                >
-                  <Settings className="h-4 w-4 text-primary" />
-                </button>
-              )}
-
-              {/* debug overlay removed for cleaner UI */}
             </div>
           </div>
 
           {/* Settings Panel */}
-          {uploadedImage && showSettings && (
+          {uploadedImage && (
             <div className="md:w-72 lg:w-80 flex-shrink-0 md:h-auto">
-              <Card className="border border-gray-200/60 bg-white/95 backdrop-blur-sm overflow-hidden h-full max-h-180 shadow-xl">
-                <CardHeader className="px-4 bg-transparent border-b-1 border-gray-200/50">
-                  <div className="flex justify-between items-center">
-                    <CardTitle className="text-lg font-medium text-gray-700">
-                      Image Settings
-                    </CardTitle>
-                    <button
-                      className="text-gray-500 hover:text-gray-700 md:hidden"
-                      onClick={() => setShowSettings(false)}
-                    >
-                      <X className="h-5 w-5" />
-                    </button>
-                  </div>
+              <Editor
+                scale={scale}
+                setScale={setScale}
+                rotation={rotation}
+                setRotation={setRotation}
+                resetToDefault={resetToDefault}
+                scaleInputValue={scaleInputValue}
+                rotationInputValue={rotationInputValue}
+                scaleError={scaleError}
+                rotationError={rotationError}
+                handleScaleInputChange={handleScaleInputChange}
+                handleRotationInputChange={handleRotationInputChange}
+                handleScaleInputBlur={handleScaleInputBlur}
+                handleRotationInputBlur={handleRotationInputBlur}
+              />
+              <Card className="mt-4 border-[#4B00A3]/20 bg-white/95 backdrop-blur-sm shadow-xl">
+                <CardHeader className="border-b border-[#4B00A3]/10">
+                  <CardTitle className="text-sm font-medium text-[#4B00A3]">
+                    Social Media Caption
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="bg-transparent">
-                  <div className="space-y-4">
-                    {/* Scale Control */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <h4 className="text-sm font-medium text-gray-700">
-                          Scale
-                        </h4>
-                        <div className="w-20">
-                          <Input
-                            type="number"
-                            min="0.1"
-                            max="10"
-                            step="0.1"
-                            value={scaleInputValue}
-                            onChange={handleScaleInputChange}
-                            onBlur={handleScaleInputBlur}
-                            className={`h-8 text-sm border border-gray-300 bg-white text-gray-800 
-                              ${
-                                scaleError
-                                  ? "border-red-500 focus:ring-red-500"
-                                  : "focus:ring-primary"
-                              }`}
-                          />
-                        </div>
-                      </div>
-
-                      {scaleError && (
-                        <div className="flex items-center gap-1 text-red-600 text-xs justify-end">
-                          <AlertCircle className="h-3 w-3" />
-                          <span>{scaleError}</span>
-                        </div>
-                      )}
-
-                      <div className="flex items-center gap-2 px-1">
-                        <button
-                          className="text-gray-600 hover:text-gray-800 transition-colors"
-                          onClick={() => {
-                            const newScale = Math.max(scale - 0.1, 0.1);
-                            setScale(newScale);
-                            setScaleInputValue(newScale.toFixed(1));
-                          }}
-                          title="Zoom out (-)"
-                          aria-label="Zoom out"
-                        >
-                          <ZoomOut className="h-4 w-4" />
-                        </button>
-                        <Slider
-                          value={[scale]}
-                          min={0.1}
-                          max={10}
-                          step={0.1}
-                          onValueChange={(value) => {
-                            setScale(value[0]);
-                            setScaleInputValue(value[0].toString());
-                            setScaleError("");
-                          }}
-                          className="flex-grow"
-                        />
-                        <button
-                          className="text-gray-600 hover:text-gray-800 transition-colors"
-                          onClick={() => {
-                            const newScale = Math.min(scale + 0.1, 10);
-                            setScale(newScale);
-                            setScaleInputValue(newScale.toFixed(1));
-                          }}
-                          title="Zoom in (=)"
-                          aria-label="Zoom in"
-                        >
-                          <ZoomIn className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Rotation Control */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <h4 className="text-sm font-medium text-gray-700">
-                          Rotation
-                        </h4>
-                        <div className="w-20">
-                          <Input
-                            type="number"
-                            min="0"
-                            max="360"
-                            step="1"
-                            value={rotationInputValue}
-                            onChange={handleRotationInputChange}
-                            onBlur={handleRotationInputBlur}
-                            className={`h-8 text-sm border border-gray-300 bg-white text-gray-800 
-                              ${
-                                rotationError
-                                  ? "border-red-500 focus:ring-red-500"
-                                  : "focus:ring-primary"
-                              }`}
-                          />
-                        </div>
-                      </div>
-
-                      {rotationError && (
-                        <div className="flex items-center gap-1 text-red-600 text-xs justify-end">
-                          <AlertCircle className="h-3 w-3" />
-                          <span>{rotationError}</span>
-                        </div>
-                      )}
-
-                      <div className="flex items-center gap-2 px-1">
-                        <button
-                          className="text-gray-600 hover:text-gray-800 transition-colors"
-                          onClick={() => {
-                            const newRotation = (rotation - 10 + 360) % 360;
-                            setRotation(newRotation);
-                            setRotationInputValue(newRotation.toString());
-                          }}
-                          title="Rotate -10° ([)"
-                          aria-label="Rotate counterclockwise"
-                        >
-                          <RotateCcw className="h-4 w-4" />
-                        </button>
-                        <Slider
-                          value={[rotation]}
-                          min={0}
-                          max={360}
-                          step={1}
-                          onValueChange={(value) => {
-                            setRotation(value[0]);
-                            setRotationInputValue(value[0].toString());
-                            setRotationError("");
-                          }}
-                          className="flex-grow"
-                        />
-                        <button
-                          className="text-gray-600 hover:text-gray-800 transition-colors"
-                          onClick={() => {
-                            const newRotation = (rotation + 10) % 360;
-                            setRotation(newRotation);
-                            setRotationInputValue(newRotation.toString());
-                          }}
-                          title="Rotate +10° (])"
-                          aria-label="Rotate clockwise"
-                        >
-                          <RotateCw className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Position Control */}
-                    <div className="space-y-1">
-                      <h4 className="text-sm font-medium text-gray-700">
-                        Position
-                      </h4>
-                      <p className="text-xs text-gray-500">
-                        Drag the image to adjust position, pinch to zoom
-                      </p>
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full text-sm border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 h-8"
-                          onClick={() => setPosition({ x: 0, y: 0 })}
-                        >
-                          Center
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full text-sm border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 h-8"
-                          onClick={fitToCanvas}
-                        >
-                          Fit to Canvas
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Caption Section */}
-                    <div className="space-y-1">
-                      <h4 className="text-sm font-medium text-gray-700">
-                        Social Media Caption
-                      </h4>
-                      <div className="relative">
-                        <div className="p-2 border border-gray-200/60 rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words bg-white/50 text-gray-800 backdrop-blur-sm">
-                          {caption}
-                        </div>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="absolute top-1 right-1 h-6 w-6 p-0 text-gray-600 hover:text-gray-800"
-                          onClick={copyCaption}
-                        >
-                          {captionCopied ? (
-                            <Check className="h-3 w-3 text-green-600" />
-                          ) : (
-                            <Copy className="h-3 w-3" />
-                          )}
-                        </Button>
-
-                        {captionCopied && (
-                          <div className="absolute -top-6 right-0 bg-gray-700 text-white text-xs py-1 px-2 rounded shadow-sm">
-                            Copied!
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="pt-1 grid grid-cols-2 gap-2">
-                      <Button
-                        variant="outline"
-                        className="h-8 w-full px-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
-                        onClick={resetToDefault}
-                      >
-                        <RefreshCw className="mr-1 h-4 w-4" /> Reset
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="h-8 w-full px-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 text-sm font-medium"
-                        onClick={changeImage}
-                      >
-                        <Upload className="mr-1 h-4 w-4" /> Change
-                      </Button>
+                <CardContent className="pt-4">
+                  <div className="relative">
+                    <div className="p-3 border border-[#4B00A3]/20 rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words bg-white text-gray-800">
+                      {caption}
                     </div>
                     <Button
-                      variant="default"
-                      className="w-full h-9"
-                      onClick={downloadImage}
+                      size="sm"
+                      variant="ghost"
+                      className="absolute top-1 right-1 h-8 w-8 p-0 text-[#4B00A3] hover:bg-[#4B00A3]/10 hover:text-[#4B00A3]"
+                      onClick={copyCaption}
                     >
-                      <Download className="mr-2 h-4 w-4" /> Download Image
+                      {captionCopied ? (
+                        <Check className="h-4 w-4 text-green-600" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
                     </Button>
+
+                    {captionCopied && (
+                      <div className="absolute -top-8 right-0 bg-[#4B00A3] text-white text-xs py-1 px-2 rounded shadow-sm">
+                        Copied!
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
+              <Button
+                className="w-full h-10 mt-4 bg-[#4B00A3] hover:bg-[#6100D1] text-white"
+                onClick={downloadImage}
+              >
+                <Download className="mr-2 h-4 w-4" /> Download Image
+              </Button>
             </div>
           )}
         </main>
@@ -940,13 +511,6 @@ Save the date — the future begins October 18 at PUP Bulwagang Balagtas. 🧡
           </span>
         </div>
       </div>
-      <input
-        id="image-upload"
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={handleImageUpload}
-      />
 
       <div className="fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm border-t border-gray-200">
         <Footer />
