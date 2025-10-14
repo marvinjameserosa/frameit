@@ -64,7 +64,10 @@ export default function Dropzone({
         <Button
           variant="outline"
           className="bg-white/70 border-[#4B00A3] text-[#4B00A3] hover:bg-[#4B00A3] hover:text-white"
-          onClick={handleBrowseClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleBrowseClick();
+          }}
         >
           Upload Image
         </Button>
