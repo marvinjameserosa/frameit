@@ -85,8 +85,8 @@ export default function Canvas({
   return (
     <canvas
       ref={canvasRef}
-      width={800}
-      height={800}
+      width={1200}
+      height={1200}
       className="w-full h-auto max-w-full max-h-full rounded-lg shadow-lg"
       onMouseDown={onDragStart}
       onMouseMove={onDrag}

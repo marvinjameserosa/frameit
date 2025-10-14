@@ -1,12 +1,9 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-import { Download, Copy, Check } from "lucide-react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Dropzone from "@/components/dropzone";
-import Editor from "@/components/editor";
+import SettingsPanel from "@/components/settings-panel";
 import Canvas from "@/components/canvas";
 
 export default function ImageFrameOverlay() {
@@ -405,16 +402,16 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
       ></div>
 
       {/* Main container */}
-      <div className="flex flex-col flex-1 h-full w-full max-w-6xl mx-auto px-4 py-4 md:py-6 pt-10 items-center justify-start md:justify-center relative z-10">
+      <div className="flex flex-col flex-1 h-full w-full max-w-7xl mx-auto px-4 py-4 md:py-6 pt-10 items-center justify-start md:justify-center relative z-10">
         {/* Main content area */}
-        <main className="flex flex-col md:flex-row gap-4 w-full pb-10 md:pt-0">
+        <main className="flex flex-col md:flex-row gap-2 w-full pb-4 md:pt-0">
           {/* Canvas Container */}
           <div
-            className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border bg-card text-card-foreground shadow-sm w-auto h-auto mx-auto transition-all duration-300 ${
+            className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border shadow-2xl w-auto mx-auto backdrop-blur-sm transition-all duration-300 ${
               uploadedImage ? "bg-white/95" : "bg-white/80"
             }`}
           >
-            <div className="relative max-h-180 max-w-180 aspect-square touch-none">
+            <div className="relative w-[calc(100vw-2rem)] h-[calc(100vw-2rem)] md:w-[calc(100vh-12rem)] md:h-[calc(100vh-12rem)] max-w-[calc(100vh-12rem)] max-h-[calc(100vh-12rem)] touch-none">
               <Canvas
                 uploadedImage={uploadedImage}
                 scale={scale}
@@ -442,65 +439,29 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
 
           {/* Settings Panel */}
           {uploadedImage && (
-            <div className="md:w-72 lg:w-80 flex-shrink-0 md:h-auto">
-              <Editor
-                scale={scale}
-                setScale={setScale}
-                rotation={rotation}
-                setRotation={setRotation}
-                resetToDefault={resetToDefault}
-                scaleInputValue={scaleInputValue}
-                rotationInputValue={rotationInputValue}
-                scaleError={scaleError}
-                rotationError={rotationError}
-                handleScaleInputChange={handleScaleInputChange}
-                handleRotationInputChange={handleRotationInputChange}
-                handleScaleInputBlur={handleScaleInputBlur}
-                handleRotationInputBlur={handleRotationInputBlur}
-              />
-              <Card className="mt-4 border-[#4B00A3]/20 bg-white/95 backdrop-blur-sm shadow-xl">
-                <CardHeader className="border-b border-[#4B00A3]/10">
-                  <CardTitle className="text-sm font-medium text-[#4B00A3]">
-                    Social Media Caption
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  <div className="relative">
-                    <div className="p-3 border border-[#4B00A3]/20 rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words bg-white text-gray-800">
-                      {caption}
-                    </div>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="absolute top-1 right-1 h-8 w-8 p-0 text-[#4B00A3] hover:bg-[#4B00A3]/10 hover:text-[#4B00A3]"
-                      onClick={copyCaption}
-                    >
-                      {captionCopied ? (
-                        <Check className="h-4 w-4 text-green-600" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
-                      )}
-                    </Button>
-
-                    {captionCopied && (
-                      <div className="absolute -top-8 right-0 bg-[#4B00A3] text-white text-xs py-1 px-2 rounded shadow-sm">
-                        Copied!
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-              <Button
-                className="w-full h-10 mt-4 bg-[#4B00A3] hover:bg-[#6100D1] text-white"
-                onClick={downloadImage}
-              >
-                <Download className="mr-2 h-4 w-4" /> Download Image
-              </Button>
-            </div>
+            <SettingsPanel
+              scale={scale}
+              setScale={setScale}
+              rotation={rotation}
+              setRotation={setRotation}
+              resetToDefault={resetToDefault}
+              scaleInputValue={scaleInputValue}
+              rotationInputValue={rotationInputValue}
+              scaleError={scaleError}
+              rotationError={rotationError}
+              handleScaleInputChange={handleScaleInputChange}
+              handleRotationInputChange={handleRotationInputChange}
+              handleScaleInputBlur={handleScaleInputBlur}
+              handleRotationInputBlur={handleRotationInputBlur}
+              caption={caption}
+              copyCaption={copyCaption}
+              captionCopied={captionCopied}
+              downloadImage={downloadImage}
+            />
           )}
         </main>
 
-        <div className="flex justify-center items-center pb-4 px-4">
+        <div className="flex justify-center items-center px-4">
           <span className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium text-center">
             Effortlessly frame your photos with just one click.
           </span>
