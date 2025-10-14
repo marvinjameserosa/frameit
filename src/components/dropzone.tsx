@@ -48,7 +48,7 @@ export default function Dropzone({
   return (
     <div
       className={`relative flex flex-col items-center justify-center w-full h-full cursor-pointer transition-colors ${
-        isDragOver ? "bg-[#4B00A3]/10" : ""
+        isDragOver ? "bg-gray-100" : ""
       }`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
@@ -58,12 +58,12 @@ export default function Dropzone({
     >
       <div className="flex flex-col items-center justify-center gap-3">
         <Upload className="w-10 h-10 text-[#4B00A3]" />
-        <p className="text-sm text-[#4B00A3]/80">
+        <p className="text-sm font-medium text-gray-600">
           Drag & drop an image here or
         </p>
         <Button
           variant="outline"
-          className="bg-white/70 border-[#4B00A3] text-[#4B00A3] hover:bg-[#4B00A3] hover:text-white"
+          className="bg-white/70 border-gray-300 text-gray-700 hover:bg-[#4B00A3] hover:text-white hover:bg-[#4B00A3] transition-colors font-medium"
           onClick={(e) => {
             e.stopPropagation();
             handleBrowseClick();
@@ -86,7 +86,7 @@ export default function Dropzone({
       {uploadError && (
         <div className="absolute bottom-4 flex items-center text-red-500">
           <AlertCircle className="w-4 h-4 mr-2" />
-          <p className="text-sm">{uploadError}</p>
+          <p className="text-sm font-medium">{uploadError}</p>
         </div>
       )}
     </div>

@@ -405,16 +405,16 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
       ></div>
 
       {/* Main container */}
-      <div className="flex flex-col flex-1 h-full w-full max-w-6xl mx-auto px-4 py-4 md:py-6 pt-10 items-center justify-start md:justify-center relative z-10">
+      <div className="flex flex-col flex-1 h-full w-full max-w-7xl mx-auto px-4 py-4 md:py-6 pt-10 items-center justify-start md:justify-center relative z-10">
         {/* Main content area */}
         <main className="flex flex-col md:flex-row gap-4 w-full pb-10 md:pt-0">
           {/* Canvas Container */}
           <div
-            className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border bg-card text-card-foreground shadow-sm w-auto h-auto mx-auto transition-all duration-300 ${
+            className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border shadow-2xl w-auto mx-auto backdrop-blur-sm transition-all duration-300 ${
               uploadedImage ? "bg-white/95" : "bg-white/80"
             }`}
           >
-            <div className="relative max-h-180 max-w-180 aspect-square touch-none">
+            <div className="relative w-[calc(100vw-2rem)] h-[calc(100vw-2rem)] md:w-[calc(100vh-12rem)] md:h-[calc(100vh-12rem)] max-w-[calc(100vh-12rem)] max-h-[calc(100vh-12rem)] touch-none">
               <Canvas
                 uploadedImage={uploadedImage}
                 scale={scale}
@@ -460,6 +460,7 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
               />
               <Card className="mt-4 border-[#4B00A3]/20 bg-white/95 backdrop-blur-sm shadow-xl">
                 <CardHeader className="border-b border-[#4B00A3]/10">
+                  {/* Subtle Color: Used brand color for the title */}
                   <CardTitle className="text-sm font-medium text-[#4B00A3]">
                     Social Media Caption
                   </CardTitle>
@@ -469,6 +470,7 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
                     <div className="p-3 border border-[#4B00A3]/20 rounded-md text-sm h-60 max-h-60 overflow-y-auto whitespace-pre-wrap break-words bg-white text-gray-800">
                       {caption}
                     </div>
+                    {/* Subtle Color: Ghost button uses brand color on hover */}
                     <Button
                       size="sm"
                       variant="ghost"
@@ -490,11 +492,12 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
                   </div>
                 </CardContent>
               </Card>
+              {/* Big Button: Styled with brand color, larger size, and enhanced hover/focus states */}
               <Button
-                className="w-full h-10 mt-4 bg-[#4B00A3] hover:bg-[#6100D1] text-white"
+                className="w-full h-12 mt-4 text-base font-semibold text-white transition-all duration-300 ease-in-out bg-[#4B00A3] rounded-lg shadow-lg hover:bg-[#6100D1] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#6100D1]"
                 onClick={downloadImage}
               >
-                <Download className="mr-2 h-4 w-4" /> Download Image
+                <Download className="w-5 h-5 mr-2" /> Download Image
               </Button>
             </div>
           )}
