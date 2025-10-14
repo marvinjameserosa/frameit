@@ -28,9 +28,7 @@ export default function ImageFrameOverlay() {
   const caption = `🦸‍♂️ 𝐒𝐏𝐀𝐑𝐊𝐘, 𝐋𝐄𝐓'𝐒 𝐆𝐎 𝐒𝐔𝐏𝐄𝐑!⚡
 I’m [name] and I am ready to create, connect, and and make the greatest impact! 💥
 
-
 Let's light up this school year💡one line of code 🟡, one idea 🔵, and one spark at a time ⚪. Ready to serve with 𝙋assion, 𝙋urpose, and 𝙋eople 〰️ always the Sparky Way. 🦸
-
 
 🗣️ 𝗦𝗜𝗚𝗡 𝗨𝗣 𝗢𝗥 𝗦𝗢𝗔𝗥 𝗔𝗪𝗔𝗬!🚀
 Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM, and light up the sky! ⚡
@@ -38,15 +36,12 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
 🔗 https://forms.gle/tcdJUtSBozvCxntHA
 🔗 https://forms.gle/tcdJUtSBozvCxntHA
 
-
 ⏰ Apply until October 19
-
 
 🗣️ 𝙎𝙥𝙖𝙧𝙠𝙮’𝙨 𝙘𝙖𝙡𝙡𝙞𝙣𝙜… grab your DP frame below and soar high! 
 🔗 https://gdgmembership.vercel.app/
 🔗 https://gdgmembership.vercel.app/
 🔗 https://gdgmembership.vercel.app/
-
 
 ✍🏽 Spiel by 𝘑𝘢𝘥𝘦 𝘚𝘩𝘢𝘯𝘢 & 𝘎𝘪𝘢𝘯𝘯𝘦 𝘋𝘢𝘴𝘤𝘰
 🎨 Mascot by 𝘊𝘺𝘳𝘶𝘻 𝘈𝘳𝘤𝘢𝘯
@@ -415,7 +410,7 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
         <main className="flex flex-col md:flex-row gap-4 w-full pb-10 md:pt-0">
           {/* Canvas Container */}
           <div
-            className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border shadow-2xl w-auto h-auto mx-auto backdrop-blur-sm transition-all duration-300 ${
+            className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border bg-card text-card-foreground shadow-sm w-auto h-auto mx-auto transition-all duration-300 ${
               uploadedImage ? "bg-white/95" : "bg-white/80"
             }`}
           >
