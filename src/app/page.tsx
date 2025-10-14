@@ -1,8 +1,5 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-import { Download, Copy, Check } from "lucide-react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Dropzone from "@/components/dropzone";
@@ -407,7 +404,7 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
       {/* Main container */}
       <div className="flex flex-col flex-1 h-full w-full max-w-7xl mx-auto px-4 py-4 md:py-6 pt-10 items-center justify-start md:justify-center relative z-10">
         {/* Main content area */}
-        <main className="flex flex-col md:flex-row gap-4 w-full pb-10 md:pt-0">
+        <main className="flex flex-col md:flex-row gap-2 w-full pb-4 md:pt-0">
           {/* Canvas Container */}
           <div
             className={`relative flex items-center justify-center rounded-lg p-2 md:p-4 border shadow-2xl w-auto mx-auto backdrop-blur-sm transition-all duration-300 ${
@@ -464,7 +461,7 @@ Hep-hep sa lahat ng hindi pa nakakapag-apply 🫵 be a hero, join our SUPER TEAM
           )}
         </main>
 
-        <div className="flex justify-center items-center pb-4 px-4">
+        <div className="flex justify-center items-center px-4">
           <span className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium text-center">
             Effortlessly frame your photos with just one click.
           </span>
